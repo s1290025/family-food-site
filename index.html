@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>食べもの紹介</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>食べもの紹介サイト</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <div class="container">
+    <h1>食べもの紹介サイト</h1>
+    <p class="subtitle">ファミレス紹介と家庭料理紹介を切り替えて見られます。</p>
 
-<h1>食べもの紹介サイト</h1>
+    <div class="tabs">
+      <button id="tab-family" class="tab active" onclick="switchSection('family')">
+        ファミレス紹介
+      </button>
+      <button id="tab-home" class="tab" onclick="switchSection('home')">
+        家庭料理紹介
+      </button>
+    </div>
 
-<div class="tabs">
-<button onclick="switchSection('family')">ファミレス紹介</button>
-<button onclick="switchSection('home')">家庭料理紹介</button>
-</div>
+    <div id="category-buttons" class="category-buttons"></div>
 
-<div id="category-buttons"></div>
+    <div id="items" class="items-grid"></div>
 
-<div id="items"></div>
+    <div id="detail" class="detail-box hidden"></div>
+  </div>
 
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
