@@ -1,8 +1,8 @@
 let currentSection = "family";
-let currentCategory = "all";
+let selectedTags = [];
 
 const data = [
-  /* 追加方法
+    /* 追加方法
   {
     id: カード番号（重複しなければOK）,
     section: "family",（family → ファミレス　home → 家庭料理）
@@ -64,9 +64,9 @@ const data = [
 
 function switchSection(section) {
   currentSection = section;
-  currentCategory = "all";
+  selectedTags = [];
   updateTabUI();
-  renderCategoryButtons();
+  renderTagButtons();
   renderCards();
   closeModal();
 }
@@ -80,7 +80,7 @@ function getCurrentSectionItems() {
   return data.filter(item => item.section === currentSection);
 }
 
-function renderCategoryButtons() {
+function renderTagButtons() {
   const items = getCurrentSectionItems();
   const tags = [...new Set(items.flatMap(item => item.tags))];
   const container = document.getElementById("category-buttons");
@@ -88,11 +88,11 @@ function renderCategoryButtons() {
   container.innerHTML = "";
 
   const allButton = document.createElement("button");
-  allButton.className = "category-btn" + (currentCategory === "all" ? " active" : "");
+  allButton.className = "category-btn" + (selectedTags.length === 0 ? " active" : "");
   allButton.textContent = "すべて";
   allButton.onclick = () => {
-    currentCategory = "all";
-    renderCategoryButtons();
+    selectedTags = [];
+    renderTagButtons();
     renderCards();
     closeModal();
   };
@@ -100,27 +100,47 @@ function renderCategoryButtons() {
 
   tags.forEach(tag => {
     const button = document.createElement("button");
-    button.className = "category-btn" + (currentCategory === tag ? " active" : "");
+    button.className = "category-btn" + (selectedTags.includes(tag) ? " active" : "");
     button.textContent = tag;
     button.onclick = () => {
-      currentCategory = tag;
-      renderCategoryButtons();
-      renderCards();
-      closeModal();
+      toggleTag(tag);
     };
     container.appendChild(button);
   });
+}
+
+function toggleTag(tag) {
+  if (selectedTags.includes(tag)) {
+    selectedTags = selectedTags.filter(t => t !== tag);
+  } else {
+    selectedTags = [...selectedTags, tag];
+  }
+
+  renderTagButtons();
+  renderCards();
+  closeModal();
 }
 
 function renderCards() {
   const container = document.getElementById("items");
   let items = getCurrentSectionItems();
 
-  if (currentCategory !== "all") {
-    items = items.filter(item => item.tags.includes(currentCategory));
+  if (selectedTags.length > 0) {
+    items = items.filter(item =>
+      selectedTags.every(tag => item.tags.includes(tag))
+    );
   }
 
   container.innerHTML = "";
+
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div class="empty-message">
+        条件に合うカードがありません。
+      </div>
+    `;
+    return;
+  }
 
   items.forEach(item => {
     const card = document.createElement("div");
@@ -128,7 +148,10 @@ function renderCards() {
     card.onclick = () => showDetail(item.id);
 
     const tagsHtml = item.tags
-      .map(tag => `<span class="tag clickable-tag" onclick="filterByTag(event, '${escapeHtml(tag)}')">#${escapeHtml(tag)}</span>`)
+      .map(tag => {
+        const selectedClass = selectedTags.includes(tag) ? " tag-selected" : "";
+        return `<span class="tag clickable-tag${selectedClass}" onclick="filterByTag(event, '${escapeHtml(tag)}')">#${escapeHtml(tag)}</span>`;
+      })
       .join("");
 
     card.innerHTML = `
@@ -150,7 +173,10 @@ function showDetail(id) {
 
   const sectionLabel = item.section === "family" ? "ファミレス紹介" : "家庭料理紹介";
   const tagsHtml = item.tags
-    .map(tag => `<span class="tag clickable-tag" onclick="filterByTag(event, '${escapeHtml(tag)}')">#${escapeHtml(tag)}</span>`)
+    .map(tag => {
+      const selectedClass = selectedTags.includes(tag) ? " tag-selected" : "";
+      return `<span class="tag clickable-tag${selectedClass}" onclick="filterByTag(event, '${escapeHtml(tag)}')">#${escapeHtml(tag)}</span>`;
+    })
     .join("");
 
   detail.innerHTML = `
@@ -165,10 +191,7 @@ function showDetail(id) {
 
 function filterByTag(event, tag) {
   event.stopPropagation();
-  currentCategory = tag;
-  renderCategoryButtons();
-  renderCards();
-  closeModal();
+  toggleTag(tag);
 }
 
 function closeModal(event) {
@@ -192,5 +215,5 @@ function escapeHtml(text) {
 }
 
 updateTabUI();
-renderCategoryButtons();
+renderTagButtons();
 renderCards();
