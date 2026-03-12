@@ -357,3 +357,11 @@ h1 {
   line-height: 1.9;
   margin-bottom: 16px;
 }
+
+.clickable-tag {
+  cursor: pointer;
+}
+
+.clickable-tag:hover {
+  background: #e0e0e0;
+}
