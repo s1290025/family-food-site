@@ -139,7 +139,8 @@ function renderCards() {
 
 function showDetail(id) {
   const item = data.find(d => d.id === id);
-  const detail = document.getElementById("detail");
+  const modal = document.getElementById("modal");
+  const detail = document.getElementById("modal-detail");
 
   if (!item) return;
 
@@ -156,13 +157,25 @@ function showDetail(id) {
     <div class="tags">${tagsHtml}</div>
   `;
 
-  detail.classList.remove("hidden");
+  modal.classList.remove("hidden");
+}
+
+function closeModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+
+  const modal = document.getElementById("modal");
+  const detail = document.getElementById("modal-detail");
+
+  detail.innerHTML = "";
+  modal.classList.add("hidden");
 }
 
 function clearDetail() {
-  const detail = document.getElementById("detail");
+  const modal = document.getElementById("modal");
+  const detail = document.getElementById("modal-detail");
+
   detail.innerHTML = "";
-  detail.classList.add("hidden");
+  modal.classList.add("hidden");
 }
 
 updateTabUI();
