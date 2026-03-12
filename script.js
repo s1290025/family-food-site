@@ -57,7 +57,7 @@ function renderTagButtons() {
 
   const allButton = document.createElement("button");
   allButton.className = "category-btn" + (selectedTags.length === 0 ? " active" : "");
-  allButton.textContent = "すべて";
+  allButton.textContent = "All";
   allButton.onclick = () => {
     selectedTags = [];
     renderTagButtons();
