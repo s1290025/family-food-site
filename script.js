@@ -2,11 +2,10 @@ let currentSection = "family";
 let currentCategory = "all";
 
 const data = [
-/* 追加方法
+  /* 追加方法
   {
     id: カード番号（重複しなければOK）,
     section: "family",（family → ファミレス　home → 家庭料理）
-    category: "チーズ",（絞り込みカテゴリ）
     title: "サイゼリヤ ミラノ風ドリア",（カードタイトル）
     comment: "安くて食べやすい定番メニューです。",（カードに表示される短い説明）
     detail: "ホワイトソースとミートソースが合わさったドリアで、価格が安く満足感があります。",（クリックしたときの詳細文章）
@@ -16,7 +15,6 @@ const data = [
   {
     id: 1,
     section: "family",
-    category: "牛肉",
     title: "ガスト ビーフステーキ",
     comment: "手頃な価格で食べやすく、満足感のあるメニューです。",
     detail: "ジューシーで食べごたえがあり、しっかり牛肉を食べたいときに向いています。セットで頼みやすいのも良いところです。",
@@ -25,7 +23,6 @@ const data = [
   {
     id: 2,
     section: "family",
-    category: "ラーメン",
     title: "バーミヤン 醤油ラーメン",
     comment: "あっさりした味で、気軽に食べやすいです。",
     detail: "こってりしすぎず、幅広い人が食べやすい定番のラーメンです。中華系のサイドメニューと一緒に頼みやすいのも魅力です。",
@@ -34,7 +31,6 @@ const data = [
   {
     id: 3,
     section: "family",
-    category: "デザート",
     title: "ココス チョコパフェ",
     comment: "食後でも食べやすい定番デザートです。",
     detail: "チョコの甘さとアイスの組み合わせが分かりやすく、満足感があります。家族や友人と行ったときにも選びやすいメニューです。",
@@ -43,7 +39,6 @@ const data = [
   {
     id: 4,
     section: "home",
-    category: "牛肉",
     title: "肉じゃが",
     comment: "甘辛い味付けでご飯によく合う家庭料理です。",
     detail: "じゃがいもや玉ねぎに味がしみるとおいしく、作り置きもしやすいです。家庭料理らしさが出やすい定番メニューだと思います。",
@@ -52,7 +47,6 @@ const data = [
   {
     id: 5,
     section: "home",
-    category: "麺",
     title: "にゅうめん",
     comment: "やさしい味で、体調が悪いときでも食べやすいです。",
     detail: "温かいだしと柔らかい麺で、落ち着いた味わいです。具材を変えやすく、家庭ごとの違いも出しやすい料理です。",
@@ -61,20 +55,10 @@ const data = [
   {
     id: 6,
     section: "home",
-    category: "卵",
     title: "だし巻き卵",
     comment: "やさしい味で、朝ごはんにも合います。",
     detail: "だしの風味が感じられて、シンプルでも満足感があります。家庭によって甘めかどうかが変わるのも面白いところです。",
     tags: ["卵", "和食", "家庭料理"]
-  },
-  {
-  id: 7,
-  section: "family",
-  category: "チーズ",
-  title: "サイゼリヤ ミラノ風ドリア",
-  comment: "安くて食べやすい定番メニューです。",
-  detail: "ホワイトソースとミートソースが合わさったドリアで、価格が安く満足感があります。",
-  tags: ["チーズ", "ドリア", "ファミレス"]
   }
 ];
 
@@ -98,7 +82,7 @@ function getCurrentSectionItems() {
 
 function renderCategoryButtons() {
   const items = getCurrentSectionItems();
-  const categories = [...new Set(items.map(item => item.category))];
+  const tags = [...new Set(items.flatMap(item => item.tags))];
   const container = document.getElementById("category-buttons");
 
   container.innerHTML = "";
@@ -114,12 +98,12 @@ function renderCategoryButtons() {
   };
   container.appendChild(allButton);
 
-  categories.forEach(category => {
+  tags.forEach(tag => {
     const button = document.createElement("button");
-    button.className = "category-btn" + (currentCategory === category ? " active" : "");
-    button.textContent = category;
+    button.className = "category-btn" + (currentCategory === tag ? " active" : "");
+    button.textContent = tag;
     button.onclick = () => {
-      currentCategory = category;
+      currentCategory = tag;
       renderCategoryButtons();
       renderCards();
       closeModal();
@@ -133,7 +117,7 @@ function renderCards() {
   let items = getCurrentSectionItems();
 
   if (currentCategory !== "all") {
-    items = items.filter(item => item.category === currentCategory);
+    items = items.filter(item => item.tags.includes(currentCategory));
   }
 
   container.innerHTML = "";
@@ -144,12 +128,12 @@ function renderCards() {
     card.onclick = () => showDetail(item.id);
 
     const tagsHtml = item.tags
-      .map(tag => `<span class="tag">#${tag}</span>`)
+      .map(tag => `<span class="tag clickable-tag" onclick="filterByTag(event, '${escapeHtml(tag)}')">#${escapeHtml(tag)}</span>`)
       .join("");
 
     card.innerHTML = `
-      <h3>${item.title}</h3>
-      <p class="comment">${item.comment}</p>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p class="comment">${escapeHtml(item.comment)}</p>
       <div class="tags">${tagsHtml}</div>
     `;
 
@@ -166,17 +150,25 @@ function showDetail(id) {
 
   const sectionLabel = item.section === "family" ? "ファミレス紹介" : "家庭料理紹介";
   const tagsHtml = item.tags
-    .map(tag => `<span class="tag">#${tag}</span>`)
+    .map(tag => `<span class="tag clickable-tag" onclick="filterByTag(event, '${escapeHtml(tag)}')">#${escapeHtml(tag)}</span>`)
     .join("");
 
   detail.innerHTML = `
-    <h2>${item.title}</h2>
-    <div class="detail-meta">${sectionLabel} / ${item.category}</div>
-    <p class="detail-text">${item.detail}</p>
+    <h2>${escapeHtml(item.title)}</h2>
+    <div class="detail-meta">${sectionLabel}</div>
+    <p class="detail-text">${escapeHtml(item.detail)}</p>
     <div class="tags">${tagsHtml}</div>
   `;
 
   modal.classList.remove("hidden");
+}
+
+function filterByTag(event, tag) {
+  event.stopPropagation();
+  currentCategory = tag;
+  renderCategoryButtons();
+  renderCards();
+  closeModal();
 }
 
 function closeModal(event) {
@@ -188,6 +180,15 @@ function closeModal(event) {
   const detail = document.getElementById("modal-detail");
   detail.innerHTML = "";
   modal.classList.add("hidden");
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 updateTabUI();
