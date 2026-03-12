@@ -2,6 +2,17 @@ let currentSection = "family";
 let currentCategory = "all";
 
 const data = [
+/* 追加方法
+  {
+    id: カード番号（重複しなければOK）,
+    section: "family",（family → ファミレス　home → 家庭料理）
+    category: "チーズ",（絞り込みカテゴリ）
+    title: "サイゼリヤ ミラノ風ドリア",（カードタイトル）
+    comment: "安くて食べやすい定番メニューです。",（カードに表示される短い説明）
+    detail: "ホワイトソースとミートソースが合わさったドリアで、価格が安く満足感があります。",（クリックしたときの詳細文章）
+    tags: ["チーズ", "ドリア", "ファミレス"]（ハッシュタグ）
+  },
+*/
   {
     id: 1,
     section: "family",
