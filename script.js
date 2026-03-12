@@ -8,7 +8,7 @@ const data = [
     category: "牛肉",
     title: "ガスト ビーフステーキ",
     comment: "手頃な価格で食べやすく、満足感のあるメニューです。",
-    detail: "ジューシーで食べごたえがあり、ファミレスの中でもしっかり牛肉を食べたいときに向いています。セットで頼みやすいのも良いところです。",
+    detail: "ジューシーで食べごたえがあり、しっかり牛肉を食べたいときに向いています。セットで頼みやすいのも良いところです。",
     tags: ["牛肉", "ステーキ", "ファミレス"]
   },
   {
@@ -64,7 +64,7 @@ function switchSection(section) {
   updateTabUI();
   renderCategoryButtons();
   renderCards();
-  clearDetail();
+  closeModal();
 }
 
 function updateTabUI() {
@@ -90,7 +90,7 @@ function renderCategoryButtons() {
     currentCategory = "all";
     renderCategoryButtons();
     renderCards();
-    clearDetail();
+    closeModal();
   };
   container.appendChild(allButton);
 
@@ -102,7 +102,7 @@ function renderCategoryButtons() {
       currentCategory = category;
       renderCategoryButtons();
       renderCards();
-      clearDetail();
+      closeModal();
     };
     container.appendChild(button);
   });
@@ -139,21 +139,20 @@ function renderCards() {
 
 function showDetail(id) {
   const item = data.find(d => d.id === id);
+  if (!item) return;
+
   const modal = document.getElementById("modal");
   const detail = document.getElementById("modal-detail");
 
-  if (!item) return;
-
+  const sectionLabel = item.section === "family" ? "ファミレス紹介" : "家庭料理紹介";
   const tagsHtml = item.tags
     .map(tag => `<span class="tag">#${tag}</span>`)
     .join("");
 
   detail.innerHTML = `
     <h2>${item.title}</h2>
-    <div class="detail-meta">
-      ${currentSection === "family" ? "ファミレス紹介" : "家庭料理紹介"} / ${item.category}
-    </div>
-    <p>${item.detail}</p>
+    <div class="detail-meta">${sectionLabel} / ${item.category}</div>
+    <p class="detail-text">${item.detail}</p>
     <div class="tags">${tagsHtml}</div>
   `;
 
@@ -161,19 +160,12 @@ function showDetail(id) {
 }
 
 function closeModal(event) {
-  if (event && event.target !== event.currentTarget) return;
+  if (event && event.target !== event.currentTarget) {
+    return;
+  }
 
   const modal = document.getElementById("modal");
   const detail = document.getElementById("modal-detail");
-
-  detail.innerHTML = "";
-  modal.classList.add("hidden");
-}
-
-function clearDetail() {
-  const modal = document.getElementById("modal");
-  const detail = document.getElementById("modal-detail");
-
   detail.innerHTML = "";
   modal.classList.add("hidden");
 }
