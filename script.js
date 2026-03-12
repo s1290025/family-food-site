@@ -139,7 +139,6 @@ function showDetail(id) {
   const modal = document.getElementById("modal");
   const detail = document.getElementById("modal-detail");
 
-  const sectionLabel = item.section === "family" ? "ファミレス紹介" : "家庭料理紹介";
   const tagsHtml = item.tags
     .map(tag => {
       const selectedClass = selectedTags.includes(tag) ? " tag-selected" : "";
@@ -149,7 +148,6 @@ function showDetail(id) {
 
   detail.innerHTML = `
     <h2>${escapeHtml(item.title)}</h2>
-    <div class="detail-meta">${sectionLabel}</div>
     <p class="detail-text">${escapeHtml(item.detail)}</p>
     <div class="tags">${tagsHtml}</div>
   `;
