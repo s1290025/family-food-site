@@ -397,8 +397,12 @@ h1 {
   font-size: 16px;
 }
 
-.detail-comment,
+.detail-comment {
+  margin-top: 10px;
+  margin-bottom: 12px;
+  font-size: 17px;
+}
+
 .detail-text {
-  margin: 0;
   line-height: 1.8;
 }
