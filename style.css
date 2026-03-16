@@ -387,3 +387,18 @@ h1 {
   color: #666;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
 }
+
+.detail-section {
+  margin-bottom: 18px;
+}
+
+.detail-heading {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+.detail-comment,
+.detail-text {
+  margin: 0;
+  line-height: 1.8;
+}
