@@ -26,7 +26,7 @@ const data = [
         Later, the staff will ask about toppings. This is called the “call.” You can choose toppings such as garlic (ninniku), vegetables (yasai), pork fat (abura), and stronger soy sauce flavor (karame). You can also increase the amount by saying “mashi” (more) or “mashi-mashi” (a lot more).
         For example, if you want garlic, extra vegetables, and pork fat, you can say: “Ninniku, yasai mashi, abura.
         
-        Because of the strong flavor and huge portions, many people say Jiro ramen is surprisingly addictive."`
+        Because of the strong flavor and huge portions, many people say Jiro ramen is surprisingly addictive."`,
     tags: ["ramen", "jiro-style ramen", "high calorie", "pork"]
   },
   {
