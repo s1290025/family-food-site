@@ -407,4 +407,5 @@ h1 {
   margin-top: 6px;
   margin-bottom: 20px;   /* ←ここが重要 */
   line-height: 1.8;
+  white-space: pre-line;
 }
