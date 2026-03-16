@@ -149,15 +149,13 @@ function showDetail(id) {
   detail.innerHTML = `
     <h2>${escapeHtml(item.title)}</h2>
 
-    <div class="detail-section">
-      <h3 class="detail-heading">Comment</h3>
-      <p class="detail-comment">${escapeHtml(item.comment)}</p>
-    </div>
+    <p class="detail-comment">
+      <strong>${escapeHtml(item.comment)}</strong>
+    </p>
 
-    <div class="detail-section">
-      <h3 class="detail-heading">Detail</h3>
-      <p class="detail-text">${escapeHtml(item.detail)}</p>
-    </div>
+    <p class="detail-text">
+      ${escapeHtml(item.detail)}
+    </p>
 
     <div class="tags">${tagsHtml}</div>
   `;
