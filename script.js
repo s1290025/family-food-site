@@ -16,7 +16,7 @@ const data = [
     id: 1,
     section: "family",
     title: "Ramen Jiro (ラーメン二郎)",
-    comment: "あとで",
+    comment: "Huge portions! High-calorie! Unique ordering rules! Addictive ramen!",
     detail: "あとで",
     tags: ["ramen", "jiro-style ramen", "high calorie", "pork"]
   },
