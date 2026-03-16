@@ -398,11 +398,13 @@ h1 {
 }
 
 .detail-comment {
-  margin-top: 10px;
-  margin-bottom: 12px;
+  margin-top: 12px;
+  margin-bottom: 10px;
   font-size: 17px;
 }
 
 .detail-text {
+  margin-top: 6px;
+  margin-bottom: 20px;   /* ←ここが重要 */
   line-height: 1.8;
 }
