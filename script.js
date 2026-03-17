@@ -17,16 +17,22 @@ const data = [
     section: "family",
     title: "Ramen Jiro (ラーメン二郎)",
     comment: "Huge portions! High-calorie! Unique ordering rules! Addictive ramen!",
-    detail: `Ramen Jiro is famous for its huge portions and unique ordering rules. 
+    detail: `Ramen Jiro is famous for its huge portions and unique ordering rules. The rules are slightly different at each Jiro shop.
     
-        Each shop has slightly different rules, and regular customers are familiar with the system.Even the small size, called “shō-ramen”, is often about twice as large as a normal bowl of ramen at other shops. 
-        Most Jiro shops offer two main sizes: shō-ramen (about 300g of noodles) and dai-ramen (about 400–500g).
-        
-        First, you buy a ticket from the vending machine and sit down, placing the ticket on the counter. If you want to change the noodle portion, you can tell the staff at this point.
-        Later, the staff will ask about toppings. This is called the “call.” You can choose toppings such as garlic (ninniku), vegetables (yasai), pork fat (abura), and stronger soy sauce flavor (karame). You can also increase the amount by saying “mashi” (more) or “mashi-mashi” (a lot more).
-        For example, if you want garlic, extra vegetables, and pork fat, you can say: “Ninniku, yasai mashi, abura.“
-        
-        Because of the strong flavor and huge portions, many people say Jiro ramen is surprisingly addictive.`,
+    Even the small size, called shō-ramen, is often more than twice as large as a normal bowl of ramen at other shops. Most Jiro shops offer two main sizes: shō-ramen (about 300g of noodles) and dai-ramen (about 400–500g of noodles).
+    
+    First, you buy a ticket from the vending machine. Then you sit down and place the ticket on the counter. If you want to change the noodle portion, you can tell the staff at this point.
+
+    After that, the staff will ask, “Do you want garlic?” At this point, you tell them the amount of the default toppings.
+
+    You can choose garlic (ninniku), vegetables (yasai), pork fat (abura), and stronger soy sauce flavor (karame). You can also increase the amount by saying “mashi” (more) or “mashi-mashi” (a lot more).
+
+    For example, if you want garlic, extra vegetables, and pork fat, you can say:
+    “ninniku, yasai mashi, abura.”
+
+    This ordering style is called the “call.”
+
+    When you finish eating, put your bowl and cup on the counter and wipe the table.`,
     tags: ["ramen", "jiro-style ramen", "high calorie", "pork"]
   },
   {
