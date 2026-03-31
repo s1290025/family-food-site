@@ -39,8 +39,8 @@ const data = [
     id: 2,
     section: "home",
     title: "Oyakodon (親子丼)",
-    comment: "あとで",
-    detail: "あとで",
+    comment: "Chicken and egg — that’s why it’s called “oyako-don”!",
+    detail: "Chicken and egg — that’s why it’s called “oyako-don”!",
     tags: ["bowl", "egg", "chicken", "onion", "soy sause"]
   }
 ];
