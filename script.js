@@ -42,6 +42,14 @@ const data = [
     comment: "Chicken and egg — that’s why it’s called “oyako-don”!",
     detail: "Chicken and egg — that’s why it’s called “oyako-don”!",
     tags: ["bowl", "egg", "chicken", "onion", "soy sause"]
+  },
+    {
+    id: 3,
+    section: "family",
+    title: "Saizeriya",
+    comment: "後で",
+    detail: "後で",
+    tags: ["Itarian"]（ハッシュタグ）
   }
 ];
 
